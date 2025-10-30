@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - PrintBazzar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Gradient Hero Background */
+    .hero-gradient {
+      background: linear-gradient(-45deg, #6a11cb, #2575fc, #ff416c, #ff4b2b);
+      background-size: 400% 400%;
+      animation: gradientAnimation 20s ease infinite;
+      position: relative;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating Clouds */
+    @keyframes cloudSlow { 0% { transform: translateX(-200px); } 100% { transform: translateX(100vw); } }
+    @keyframes cloudMedium { 0% { transform: translateX(-300px); } 100% { transform: translateX(100vw); } }
+    @keyframes cloudFast { 0% { transform: translateX(-400px); } 100% { transform: translateX(100vw); } }
+
+    .animate-cloud-slow { animation: cloudSlow 120s linear infinite; }
+    .animate-cloud-medium { animation: cloudMedium 90s linear infinite; }
+    .animate-cloud-fast { animation: cloudFast 60s linear infinite; }
+
+    /* Sparkle Animation */
+    .sparkle { position: absolute; width: 4px; height: 4px; background: white; border-radius: 50%; opacity: 0.8; animation: sparkle 2s infinite; }
+    .sparkle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+    .sparkle:nth-child(2) { top: 30%; left: 70%; animation-delay: 0.5s; }
+    .sparkle:nth-child(3) { top: 50%; left: 40%; animation-delay: 1s; }
+    .sparkle:nth-child(4) { top: 70%; left: 60%; animation-delay: 1.5s; }
+    .sparkle:nth-child(5) { top: 80%; left: 25%; animation-delay: 2s; }
+    @keyframes sparkle { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(2); opacity: 0; } }
+
+    /* Light Rays */
+    @keyframes lightRays {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animate-light-rays { 
+      background: linear-gradient(45deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02), rgba(255,255,255,0.08));
+      background-size: 200% 200%;
+      animation: lightRays 15s ease infinite;
+      position: absolute;
+      inset: 0;
+      z-index: -10;
+    }
+
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      aspect-ratio: 1 / 1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .portfolio-item:hover img {
+      transform: scale(1.1);
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease;
+    }
+    .portfolio-item:hover .overlay {
+      opacity: 1;
+    }
+    .overlay span {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+      padding: 0 8px;
+      line-height: 1.3;
+    }
+    @media (max-width: 640px) {
+      .portfolio-item {
+        aspect-ratio: 4 / 5;
+      }
+    }
+
+
+
+
+  </style>
+
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center">
+        <a href="index.html">
+          <img src="assets/logos/printbazzar.png" alt="PrintBazzar Logo" class="h-10 w-auto mr-2">
+        </a>
+        <span class="text-2xl font-bold text-orange-600">PrintBazzar</span>
+      </div>
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <a href="index.html" class="hover:text-purple-600">Home</a>
+        <a href="about.html" class="hover:text-purple-600">About</a>
+        <a href="services.html" class="hover:text-purple-600">Services</a>
+        <a href="portfolio.html" class="text-purple-600 font-semibold">Portfolio</a>
+        <a href="pricing.html" class="hover:text-purple-600">Pricing</a>
+        <a href="contact.html" class="hover:text-purple-600">Contact</a>
+      </nav>
+      <a href="contact.html" class="bg-purple-600 text-white px-4 py-2 rounded-lg shadow hover:bg-purple-700">Book Now</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 text-white text-center relative hero-gradient overflow-hidden" data-aos="fade-down">
+
+    <!-- Light Rays -->
+    <div class="animate-light-rays"></div>
+
+    <!-- Clouds -->
+    <div class="absolute top-10 left-0 w-64 h-32 bg-white rounded-full opacity-30 animate-cloud-slow"></div>
+    <div class="absolute top-32 left-[-200px] w-80 h-40 bg-white rounded-full opacity-20 animate-cloud-medium"></div>
+    <div class="absolute top-48 right-[-250px] w-72 h-36 bg-white rounded-full opacity-25 animate-cloud-fast"></div>
+
+    <!-- Sparkles -->
+    <div class="absolute inset-0 pointer-events-none">
+      <span class="sparkle"></span>
+      <span class="sparkle"></span>
+      <span class="sparkle"></span>
+      <span class="sparkle"></span>
+      <span class="sparkle"></span>
+    </div>
+
+    <div class="relative z-10 max-w-3xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Portfolio</h1>
+      <p class="text-lg mb-8">Check out some of our latest projects in graphic design, websites, social media posts, and branding.</p>
+      <a href="contact.html" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold shadow hover:bg-gray-100">Book a Service</a>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO GRID -->
+  <section class="container mx-auto px-6 py-16" data-aos="fade-up">
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/algowavelogo.png', 'Algowavelogo')">
+      <img src="assets/portfolio/algowavelogo.png" alt="Algowavelogo">
+      <div class="overlay"><span>Algowavelogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/apartmentleaseposter.png', 'Apartmentleaseposter')">
+      <img src="assets/portfolio/apartmentleaseposter.png" alt="Apartmentleaseposter">
+      <div class="overlay"><span>Apartmentleaseposter</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/appointment.png', 'Appointment')">
+      <img src="assets/portfolio/appointment.png" alt="Appointment">
+      <div class="overlay"><span>Appointment</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/bcreativelogo.png', 'Bcreativelogo')">
+      <img src="assets/portfolio/bcreativelogo.png" alt="Bcreativelogo">
+      <div class="overlay"><span>Bcreativelogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/bithivelogo.png', 'Bithivelogo')">
+      <img src="assets/portfolio/bithivelogo.png" alt="Bithivelogo">
+      <div class="overlay"><span>Bithivelogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/blisslogo.png', 'Blisslogo')">
+      <img src="assets/portfolio/blisslogo.png" alt="Blisslogo">
+      <div class="overlay"><span>Blisslogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/brewbazlogo.png', 'Brewbazlogo')">
+      <img src="assets/portfolio/brewbazlogo.png" alt="Brewbazlogo">
+      <div class="overlay"><span>Brewbazlogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/businesscard01.png', 'Businesscard01')">
+      <img src="assets/portfolio/businesscard01.png" alt="Businesscard01">
+      <div class="overlay"><span>Businesscard01</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/businesscard02.png', 'Businesscard02')">
+      <img src="assets/portfolio/businesscard02.png" alt="Businesscard02">
+      <div class="overlay"><span>Businesscard02</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/businesscard03.png', 'Businesscard03')">
+      <img src="assets/portfolio/businesscard03.png" alt="Businesscard03">
+      <div class="overlay"><span>Businesscard03</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/businesscard04.png', 'Businesscard04')">
+      <img src="assets/portfolio/businesscard04.png" alt="Businesscard04">
+      <div class="overlay"><span>Businesscard04</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/businesscard05.png', 'Businesscard05')">
+      <img src="assets/portfolio/businesscard05.png" alt="Businesscard05">
+      <div class="overlay"><span>Businesscard05</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/businesscard06.png', 'Businesscard06')">
+      <img src="assets/portfolio/businesscard06.png" alt="Businesscard06">
+      <div class="overlay"><span>Businesscard06</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/cafenestlogo.png', 'Cafenestlogo')">
+      <img src="assets/portfolio/cafenestlogo.png" alt="Cafenestlogo">
+      <div class="overlay"><span>Cafenestlogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/cakeshopprototype.png', 'Cakeshopprototype')">
+      <img src="assets/portfolio/cakeshopprototype.png" alt="Cakeshopprototype">
+      <div class="overlay"><span>Cakeshopprototype</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/calander.jpg', 'Calander')">
+      <img src="assets/portfolio/calander.jpg" alt="Calander">
+      <div class="overlay"><span>Calander</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/chaimuglogo.png', 'Chaimuglogo')">
+      <img src="assets/portfolio/chaimuglogo.png" alt="Chaimuglogo">
+      <div class="overlay"><span>Chaimuglogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/chaimugmenu.png', 'Chaimugmenu')">
+      <img src="assets/portfolio/chaimugmenu.png" alt="Chaimugmenu">
+      <div class="overlay"><span>Chaimugmenu</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/controlsystemposter.png', 'Controlsystemposter')">
+      <img src="assets/portfolio/controlsystemposter.png" alt="Controlsystemposter">
+      <div class="overlay"><span>Controlsystemposter</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/creamydelightmenu.jpg', 'Creamydelightmenu')">
+      <img src="assets/portfolio/creamydelightmenu.jpg" alt="Creamydelightmenu">
+      <div class="overlay"><span>Creamydelightmenu</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/dashboard.png', 'Dashboard')">
+      <img src="assets/portfolio/dashboard.png" alt="Dashboard">
+      <div class="overlay"><span>Dashboard</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/doctorappointmentbookingprototype.png', 'Doctorappointmentbookingprototype')">
+      <img src="assets/portfolio/doctorappointmentbookingprototype.png" alt="Doctorappointmentbookingprototype">
+      <div class="overlay"><span>Doctorappointmentbookingprototype</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/doctorappointmentbookingprototype01.png', 'Doctorappointmentbookingprototype01')">
+      <img src="assets/portfolio/doctorappointmentbookingprototype01.png" alt="Doctorappointmentbookingprototype01">
+      <div class="overlay"><span>Doctorappointmentbookingprototype01</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/dugdiya.jpg', 'Dugdiya')">
+      <img src="assets/portfolio/dugdiya.jpg" alt="Dugdiya">
+      <div class="overlay"><span>Dugdiya</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/facialoffer.png', 'Facialoffer')">
+      <img src="assets/portfolio/facialoffer.png" alt="Facialoffer">
+      <div class="overlay"><span>Facialoffer</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/flyer.png', 'Flyer')">
+      <img src="assets/portfolio/flyer.png" alt="Flyer">
+      <div class="overlay"><span>Flyer</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/grandopeningpost.png', 'Grandopeningpost')">
+      <img src="assets/portfolio/grandopeningpost.png" alt="Grandopeningpost">
+      <div class="overlay"><span>Grandopeningpost</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/graphic.png', 'Graphic')">
+      <img src="assets/portfolio/graphic.png" alt="Graphic">
+      <div class="overlay"><span>Graphic</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/homesaleposter.png', 'Homesaleposter')">
+      <img src="assets/portfolio/homesaleposter.png" alt="Homesaleposter">
+      <div class="overlay"><span>Homesaleposter</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/invitationcard.png', 'Invitationcard')">
+      <img src="assets/portfolio/invitationcard.png" alt="Invitationcard">
+      <div class="overlay"><span>Invitationcard</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/jaiviklogo.png', 'Jaiviklogo')">
+      <img src="assets/portfolio/jaiviklogo.png" alt="Jaiviklogo">
+      <div class="overlay"><span>Jaiviklogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/lohri.png', 'Lohri')">
+      <img src="assets/portfolio/lohri.png" alt="Lohri">
+      <div class="overlay"><span>Lohri</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/mahashivratri.png', 'Mahashivratri')">
+      <img src="assets/portfolio/mahashivratri.png" alt="Mahashivratri">
+      <div class="overlay"><span>Mahashivratri</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/mansoonoffer.png', 'Mansoonoffer')">
+      <img src="assets/portfolio/mansoonoffer.png" alt="Mansoonoffer">
+      <div class="overlay"><span>Mansoonoffer</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/musicdesktopprototypemockup.png', 'Musicdesktopprototypemockup')">
+      <img src="assets/portfolio/musicdesktopprototypemockup.png" alt="Musicdesktopprototypemockup">
+      <div class="overlay"><span>Musicdesktopprototypemockup</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/navratrioffer.jpg', 'Navratrioffer')">
+      <img src="assets/portfolio/navratrioffer.jpg" alt="Navratrioffer">
+      <div class="overlay"><span>Navratrioffer</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/nestmenu.png', 'Nestmenu')">
+      <img src="assets/portfolio/nestmenu.png" alt="Nestmenu">
+      <div class="overlay"><span>Nestmenu</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/onlinecourseposter.png', 'Onlinecourseposter')">
+      <img src="assets/portfolio/onlinecourseposter.png" alt="Onlinecourseposter">
+      <div class="overlay"><span>Onlinecourseposter</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/pb.png', 'Pb')">
+      <img src="assets/portfolio/pb.png" alt="Pb">
+      <div class="overlay"><span>Pb</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/price.png', 'Price')">
+      <img src="assets/portfolio/price.png" alt="Price">
+      <div class="overlay"><span>Price</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/printbazzarlogo.png', 'Printbazzarlogo')">
+      <img src="assets/portfolio/printbazzarlogo.png" alt="Printbazzarlogo">
+      <div class="overlay"><span>Printbazzarlogo</span></div>
+    </div>
+    <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/realeastetwebsiteprototype.png', 'Realeastetwebsiteprototype')">
+      <img src="assets/portfolio/realeastetwebsiteprototype.png" alt="Realeastetwebsiteprototype">
+      <div class="overlay"><span>Realeastetwebsiteprototype</span></div>
+    </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/restaurantrpost.png', 'Restaurantrpost')">
+        <img src="assets/portfolio/restaurantrpost.png" alt="Restaurantrpost">
+        <div class="overlay"><span>Restaurantrpost</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/reuselogo.png', 'Reuselogo')">
+        <img src="assets/portfolio/reuselogo.png" alt="Reuselogo">
+        <div class="overlay"><span>Reuselogo</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/sandhilogo.png', 'Sandhilogo')">
+        <img src="assets/portfolio/sandhilogo.png" alt="Sandhilogo">
+        <div class="overlay"><span>Sandhilogo</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/scanner.png', 'Scanner')">
+        <img src="assets/portfolio/scanner.png" alt="Scanner">
+        <div class="overlay"><span>Scanner</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/schooladmissionposter.png', 'Schooladmissionposter')">
+        <img src="assets/portfolio/schooladmissionposter.png" alt="Schooladmissionposter">
+        <div class="overlay"><span>Schooladmissionposter</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/shoessaleposter.png', 'Shoessaleposter')">
+        <img src="assets/portfolio/shoessaleposter.png" alt="Shoessaleposter">
+        <div class="overlay"><span>Shoessaleposter</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/tacotost.png', 'Tacotost')">
+        <img src="assets/portfolio/tacotost.png" alt="Tacotost">
+        <div class="overlay"><span>Tacotost</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/thorlawada.png', 'Thorlawada')">
+        <img src="assets/portfolio/thorlawada.png" alt="Thorlawada">
+        <div class="overlay"><span>Thorlawada</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/valentineoffer.png', 'Valentineoffer')">
+        <img src="assets/portfolio/valentineoffer.png" alt="Valentineoffer">
+        <div class="overlay"><span>Valentineoffer</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/vidyutlogo.png', 'Vidyutlogo')">
+        <img src="assets/portfolio/vidyutlogo.png" alt="Vidyutlogo">
+        <div class="overlay"><span>Vidyutlogo</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/volunteerneededposter.png', 'Volunteerneededposter')">
+        <img src="assets/portfolio/volunteerneededposter.png" alt="Volunteerneededposter">
+        <div class="overlay"><span>Volunteerneededposter</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/webdesign.png', 'Webdesign')">
+        <img src="assets/portfolio/webdesign.png" alt="Webdesign">
+        <div class="overlay"><span>Webdesign</span></div>
+      </div>
+      <div class="portfolio-item" data-aos="zoom-in" onclick="openImage('assets/portfolio/womansday.png', 'Womansday')">
+        <img src="assets/portfolio/womansday.png" alt="Womansday">
+        <div class="overlay"><span>Womansday</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- POPUP MODAL -->
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-[9999] p-4">
+  <div class="relative max-w-5xl w-full flex flex-col items-center">
+    <img id="modalImage" src="" alt="Portfolio Preview" class="max-h-[80vh] rounded-lg shadow-lg border border-gray-200 object-contain transition-transform duration-300 scale-100">
+    <p id="modalCaption" class="text-white text-lg mt-4 text-center"></p>
+    <button onclick="closeImage()" class="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-300">&times;</button>
+  </div>
+</div>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-purple-600 via-pink-500 to-red-400 text-white text-center" data-aos="fade-up">
+    <h3 class="text-3xl font-bold mb-6">Like What You See?</h3>
+    <p class="mb-8">Book a service with PrintBazzar today and let us create stunning designs for your business.</p>
+    <a href="contact.html" class="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold shadow hover:bg-gray-100">Book a Service</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-10">
+    <div class="container mx-auto grid md:grid-cols-3 gap-8">
+      <div class="flex flex-col items-start space-y-4">
+        <div class="flex items-center space-x-2">
+          <img src="assets/logos/printbazzar.png" alt="PrintBazzar Logo" class="h-10 w-auto mr-2 filter brightness-0 invert">
+          <span class="text-2xl font-bold text-white">PrintBazzar</span>
+        </div>
+        <p>We create impactful designs, websites, and digital strategies that grow your business.</p>
+      </div>
+      <div>
+        <h4 class="text-xl font-bold text-white mb-4">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html" class="hover:text-white">Home</a></li>
+          <li><a href="about.html" class="hover:text-white">About</a></li>
+          <li><a href="services.html" class="hover:text-white">Services</a></li>
+          <li><a href="portfolio.html" class="hover:text-white">Portfolio</a></li>
+          <li><a href="pricing.html" class="hover:text-white">Pricing</a></li>
+          <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xl font-bold text-white mb-4">Contact</h4>
+        <p>Email: printbazzar1428@gmail.com</p>
+        <p>WhatsApp: +91 9892128621</p>
+        <p>Location: Mumbai, Maharashtra, India</p>
+        <h4 class="text-xl font-bold text-white mt-6 mb-4">Follow Us</h4>
+        <div class="flex space-x-4 text-white text-2xl">
+          <a href="https://wa.me/your-number" target="_blank" class="hover:text-green-500"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/your-profile" target="_blank" class="hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="hover:text-blue-500"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-8 text-gray-500 text-sm border-t border-gray-700 pt-4">
+       <p>© 2025 PrintBazzar. All Rights Reserved.</p>
+       <p class="mt-1">MSME Registration No: <span class="text-gray-400 font-medium">UDYAM-MH-18-0478401</span></p>
+     </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+  <script>
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalImage");
+  const captionText = document.getElementById("modalCaption");
+
+  function openImage(src, caption) {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    modalImg.src = src;
+    captionText.innerText = caption;
+  }
+
+  function closeImage() {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+
+  // Close when clicking outside image
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeImage();
+  });
+
+  // Close with ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeImage();
+  });
+</script>
+</body>
+</html>
